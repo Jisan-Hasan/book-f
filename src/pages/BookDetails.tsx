@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   useGetReviewsQuery,
   useGetSingleBookQuery,
@@ -20,12 +20,16 @@ export default function BookDetails() {
       return;
     }
     postReview({ id: id, data: { review: review } });
-    if (isSuccess) {
-      toast.success('Review added successfully!');
-    }
+
     // Clear the review input field
     setReview('');
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('Review added successfully!');
+    }
+  }, [isSuccess]);
 
   const { data, isLoading } = useGetSingleBookQuery(id);
   if (isLoading) {
@@ -39,9 +43,12 @@ export default function BookDetails() {
         <div className="flex justify-between align-baseline">
           <h2 className="text-2xl font-semibold mb-4">{title}</h2>
           <div className="mt-6 flex gap-2">
-            <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg focus:outline-none">
+            <Link
+              to={`/edit-book/${id}`}
+              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg focus:outline-none"
+            >
               Edit
-            </button>
+            </Link>
             <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg focus:outline-none">
               Delete
             </button>

@@ -8,26 +8,35 @@ const bookApi = apiSLice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['books']
+      invalidatesTags: ['books'],
     }),
     getBooks: builder.query({
       query: () => '/books',
-      providesTags: ['books']
+      providesTags: ['books'],
     }),
     getSingleBook: builder.query({
       query: (id) => `/book/${id}`,
     }),
+    updateBook: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/book/${id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['books'],
+    }),
+
     postReview: builder.mutation({
       query: ({ id, data }) => ({
         url: `/review/${id}`,
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['reviews']
+      invalidatesTags: ['reviews'],
     }),
     getReviews: builder.query({
       query: (id) => `/review/${id}`,
-      providesTags: ['reviews']
+      providesTags: ['reviews'],
     }),
   }),
 });
@@ -38,4 +47,5 @@ export const {
   useGetSingleBookQuery,
   usePostReviewMutation,
   useGetReviewsQuery,
+  useUpdateBookMutation,
 } = bookApi;
