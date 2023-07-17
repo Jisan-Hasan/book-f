@@ -1,7 +1,6 @@
 import { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAddBookMutation } from '../redux/features/books/bookApi';
-import { useAppDispatch } from '../redux/hooks';
 
 export default function AddNewBook() {
   const [title, setTitle] = useState('');
@@ -9,12 +8,10 @@ export default function AddNewBook() {
   const [genre, setGenre] = useState('');
   const [publicationDate, setPublicationDate] = useState('');
 
-  const dispatch = useAppDispatch();
   const [addBook, { isSuccess }] = useAddBookMutation();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Submitted:', { title, author, genre, publicationDate });
     addBook({ title, author, genre, publicationDate });
     if (isSuccess) {
       toast.success('Book Added Successfully!');

@@ -7,9 +7,9 @@ export default function Navbar() {
         <h1 className="text-2xl font-semibold">Book Catalog</h1>
         <ul className="space-x-4 flex">
           <li>
-            <a href="#all-books" className="text-gray-200 hover:text-gray-100">
+            <Link to="/all-books" className="text-gray-200 hover:text-gray-100">
               All Books
-            </a>
+            </Link>
           </li>
           <li>
             <Link to='/add-new' className="text-gray-200 hover:text-gray-100">
