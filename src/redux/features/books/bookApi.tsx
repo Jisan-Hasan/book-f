@@ -25,6 +25,13 @@ const bookApi = apiSLice.injectEndpoints({
       }),
       invalidatesTags: ['books'],
     }),
+    deleteBook: builder.mutation({
+      query: (id) => ({
+        url: `/book/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['books'],
+    }),
 
     postReview: builder.mutation({
       query: ({ id, data }) => ({
@@ -48,4 +55,5 @@ export const {
   usePostReviewMutation,
   useGetReviewsQuery,
   useUpdateBookMutation,
+  useDeleteBookMutation,
 } = bookApi;

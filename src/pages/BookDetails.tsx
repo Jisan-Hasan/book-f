@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
+  useDeleteBookMutation,
   useGetReviewsQuery,
   useGetSingleBookQuery,
   usePostReviewMutation,
 } from '../redux/features/books/bookApi';
 
 export default function BookDetails() {
+  const navigate = useNavigate();
   const [review, setReview] = useState('');
   const { id } = useParams();
   const [postReview, { isSuccess }] = usePostReviewMutation();
+  const [deleteBook, { isSuccess: bookDeleteSuccess }] =
+    useDeleteBookMutation();
   const { data: reviewData } = useGetReviewsQuery(id);
   console.log(reviewData?.data);
 
@@ -31,11 +35,24 @@ export default function BookDetails() {
     }
   }, [isSuccess]);
 
+  useEffect(() => {
+    if (bookDeleteSuccess) {
+      toast.success('Book deleted Successfully');
+      navigate('/')
+    }
+  }, [bookDeleteSuccess,navigate]);
+
   const { data, isLoading } = useGetSingleBookQuery(id);
   if (isLoading) {
     return <div>Loading....</div>;
   }
   const { title, author, genre, publicationDate } = data.data;
+
+  // handle book delete
+  const handleBookDelete = (id: any) => {
+    deleteBook(id);
+    
+  };
 
   return (
     <div className="w-full md:w-2/3 lg:w-1/2 mx-auto mt-5">
@@ -49,7 +66,10 @@ export default function BookDetails() {
             >
               Edit
             </Link>
-            <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg focus:outline-none">
+            <button
+              className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg focus:outline-none"
+              onClick={() => handleBookDelete(id)}
+            >
               Delete
             </button>
           </div>
