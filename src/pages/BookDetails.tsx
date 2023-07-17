@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import DeleteConfirmation from '../components/ui/DeleteConfirmation';
 import {
   useDeleteBookMutation,
   useGetReviewsQuery,
@@ -38,9 +39,9 @@ export default function BookDetails() {
   useEffect(() => {
     if (bookDeleteSuccess) {
       toast.success('Book deleted Successfully');
-      navigate('/')
+      navigate('/');
     }
-  }, [bookDeleteSuccess,navigate]);
+  }, [bookDeleteSuccess, navigate]);
 
   const { data, isLoading } = useGetSingleBookQuery(id);
   if (isLoading) {
@@ -51,7 +52,6 @@ export default function BookDetails() {
   // handle book delete
   const handleBookDelete = (id: any) => {
     deleteBook(id);
-    
   };
 
   return (
@@ -66,12 +66,8 @@ export default function BookDetails() {
             >
               Edit
             </Link>
-            <button
-              className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg focus:outline-none"
-              onClick={() => handleBookDelete(id)}
-            >
-              Delete
-            </button>
+            
+            <DeleteConfirmation onDelete={()=>handleBookDelete(id)} />
           </div>
         </div>
         <p className="text-gray-600 mb-2">Author: {author}</p>
