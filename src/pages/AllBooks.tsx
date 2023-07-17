@@ -1,10 +1,8 @@
 import BookCard from '../components/ui/BookCard';
 import { useGetBooksQuery } from '../redux/features/books/bookApi';
-import { useAppDispatch } from '../redux/hooks';
 import { IBook } from '../types/globalTypes';
 
 export default function AllBooks() {
-  const dispatch = useAppDispatch();
   const { data, isLoading, isSuccess } = useGetBooksQuery(undefined);
   return (
     <div className="mx-2 md:mx-8 lg:mx-16">

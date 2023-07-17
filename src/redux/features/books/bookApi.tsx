@@ -15,8 +15,19 @@ const bookApi = apiSLice.injectEndpoints({
     getSingleBook: builder.query({
       query: (id) => `/book/${id}`,
     }),
+    postReview: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/review/${id}`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useAddBookMutation, useGetBooksQuery, useGetSingleBookQuery } =
-  bookApi;
+export const {
+  useAddBookMutation,
+  useGetBooksQuery,
+  useGetSingleBookQuery,
+  usePostReviewMutation,
+} = bookApi;
