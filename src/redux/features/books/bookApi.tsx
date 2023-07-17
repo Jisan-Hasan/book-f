@@ -8,9 +8,11 @@ const bookApi = apiSLice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['books']
     }),
     getBooks: builder.query({
       query: () => '/books',
+      providesTags: ['books']
     }),
     getSingleBook: builder.query({
       query: (id) => `/book/${id}`,
@@ -21,6 +23,11 @@ const bookApi = apiSLice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['reviews']
+    }),
+    getReviews: builder.query({
+      query: (id) => `/review/${id}`,
+      providesTags: ['reviews']
     }),
   }),
 });
@@ -30,4 +37,5 @@ export const {
   useGetBooksQuery,
   useGetSingleBookQuery,
   usePostReviewMutation,
+  useGetReviewsQuery,
 } = bookApi;

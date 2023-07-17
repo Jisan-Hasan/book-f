@@ -5,6 +5,6 @@ export const apiSLice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:5000',
   }),
-  tagTypes: [],
+  tagTypes: ['books','reviews'],
   endpoints: () => ({}),
 });
