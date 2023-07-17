@@ -45,6 +45,12 @@ const bookApi = apiSLice.injectEndpoints({
       query: (id) => `/review/${id}`,
       providesTags: ['reviews'],
     }),
+    getGenres: builder.query({
+      query: () => `/genres`,
+    }),
+    getYears: builder.query({
+      query: () => `/year`,
+    }),
   }),
 });
 
@@ -56,4 +62,6 @@ export const {
   useGetReviewsQuery,
   useUpdateBookMutation,
   useDeleteBookMutation,
+  useGetGenresQuery,
+  useGetYearsQuery,
 } = bookApi;
