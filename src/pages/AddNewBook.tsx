@@ -1,4 +1,4 @@
-import { FormEvent, useState,useEffect } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAddBookMutation } from '../redux/features/books/bookApi';
 
@@ -12,8 +12,8 @@ export default function AddNewBook() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addBook({ title, author, genre, publicationDate });
-    
+    addBook({ title, author, genre, publicationDate, createdAt: new Date() });
+
     // Reset the form fields
     setTitle('');
     setAuthor('');
@@ -25,8 +25,7 @@ export default function AddNewBook() {
     if (isSuccess) {
       toast.success('Book Added Successfully!');
     }
-  }, [isSuccess])
-  
+  }, [isSuccess]);
 
   return (
     <div className="mx-auto bg-white rounded-lg shadow-lg p-6 mt-10  sm:w-full  md:w-2/3 lg:w-1/2">

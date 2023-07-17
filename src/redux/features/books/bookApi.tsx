@@ -8,7 +8,7 @@ const bookApi = apiSLice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['books'],
+      invalidatesTags: ['books','sortedBook'],
     }),
     getBooks: builder.query({
       query: () => '/books',
@@ -30,7 +30,7 @@ const bookApi = apiSLice.injectEndpoints({
         url: `/book/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['books'],
+      invalidatesTags: ['books','sortedBook'],
     }),
 
     postReview: builder.mutation({
@@ -51,6 +51,10 @@ const bookApi = apiSLice.injectEndpoints({
     getYears: builder.query({
       query: () => `/year`,
     }),
+    getSortedBooks: builder.query({
+      query: () => 'sortedBook',
+      providesTags: ['sortedBook']
+    }),
   }),
 });
 
@@ -64,4 +68,5 @@ export const {
   useDeleteBookMutation,
   useGetGenresQuery,
   useGetYearsQuery,
+  useGetSortedBooksQuery,
 } = bookApi;

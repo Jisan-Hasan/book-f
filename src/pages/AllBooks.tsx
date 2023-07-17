@@ -15,19 +15,9 @@ import { IBook } from '../types/globalTypes';
 export default function AllBooks() {
   const dispatch = useAppDispatch();
   const { searchTerm, genre, year } = useAppSelector((state) => state.book);
-  const { data, isLoading, isSuccess } = useGetBooksQuery(undefined);
+  const { data } = useGetBooksQuery(undefined);
   const { data: genres } = useGetGenresQuery(undefined);
   const { data: years } = useGetYearsQuery(undefined);
-
-  const handleSearchSubmit = (e: any) => {
-    e.preventDefault();
-    // handleSearch(searchTerm);
-  };
-
-  const handleFilterSubmit = (e: any) => {
-    e.preventDefault();
-    // handleFilter(filterGenre, filterYear);
-  };
 
   let filteredBooks = null;
 
@@ -62,14 +52,8 @@ export default function AllBooks() {
               onChange={(e) => dispatch(setSearchTerm(e.target.value))}
               className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
             />
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg ml-2 focus:outline-none"
-            >
-              Search
-            </button>
           </form>
-          <form onSubmit={handleFilterSubmit}>
+          <form>
             <div className="flex items-center">
               <select
                 value={genre}
@@ -97,12 +81,6 @@ export default function AllBooks() {
                     <option key={i}>{g}</option>
                   ))}
               </select>
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg ml-2 focus:outline-none"
-              >
-                Filter
-              </button>
             </div>
           </form>
         </div>
