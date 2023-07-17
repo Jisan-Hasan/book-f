@@ -14,7 +14,6 @@ export default function Home() {
             Book 2
           </a>
         </li>
-        {/* Repeat for the remaining books */}
       </ul>
     </main>
   );

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
     <header className="bg-gray-900 text-white py-4">
@@ -8,6 +10,11 @@ export default function Navbar() {
             <a href="#all-books" className="text-gray-200 hover:text-gray-100">
               All Books
             </a>
+          </li>
+          <li>
+            <Link to='/add-new' className="text-gray-200 hover:text-gray-100">
+              Add New Book
+            </Link>
           </li>
           <li>
             <a href="#sign-in" className="text-gray-200 hover:text-gray-100">
