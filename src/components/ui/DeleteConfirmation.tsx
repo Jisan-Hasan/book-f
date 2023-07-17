@@ -1,7 +1,12 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../redux/hooks';
 
 export default function DeleteConfirmation({ onDelete }: any) {
+  const { user } = useAppSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -12,6 +17,12 @@ export default function DeleteConfirmation({ onDelete }: any) {
   };
 
   const handleDelete = () => {
+    if (!user.email) {
+      toast.error('login first');
+      navigate('/login');
+      setIsOpen(false);
+      return;
+    }
     onDelete();
     setIsOpen(false);
   };

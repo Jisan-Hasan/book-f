@@ -8,8 +8,10 @@ import {
   useGetSingleBookQuery,
   usePostReviewMutation,
 } from '../redux/features/books/bookApi';
+import { useAppSelector } from '../redux/hooks';
 
 export default function BookDetails() {
+  const { user } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const [review, setReview] = useState('');
   const { id } = useParams();
@@ -66,8 +68,8 @@ export default function BookDetails() {
             >
               Edit
             </Link>
-            
-            <DeleteConfirmation onDelete={()=>handleBookDelete(id)} />
+
+            <DeleteConfirmation onDelete={() => handleBookDelete(id)} />
           </div>
         </div>
         <p className="text-gray-600 mb-2">Author: {author}</p>
@@ -84,6 +86,7 @@ export default function BookDetails() {
             type="text"
             placeholder="Enter your review"
             value={review}
+            disabled={user.email ? false: true}
             required
             onChange={(e) => setReview(e.target.value)}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
